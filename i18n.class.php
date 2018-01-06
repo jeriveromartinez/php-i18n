@@ -246,6 +246,11 @@ class i18n {
         if ($this->forcedLang != NULL) {
             $userLangs[] = $this->forcedLang;
         }
+        
+        // 1.0 priority: forced language
+        if ($this->fallbackLang != NULL) {
+            $userLangs[] = $this->fallbackLang;
+        }
 
         // 2nd highest priority: GET parameter 'lang'
         if (isset($_GET['lang']) && is_string($_GET['lang'])) {
