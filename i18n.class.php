@@ -246,11 +246,6 @@ class i18n {
         if ($this->forcedLang != NULL) {
             $userLangs[] = $this->forcedLang;
         }
-        
-        // 1.0 priority: forced language
-        if ($this->fallbackLang != NULL) {
-            $userLangs[] = $this->fallbackLang;
-        }
 
         // 2nd highest priority: GET parameter 'lang'
         if (isset($_GET['lang']) && is_string($_GET['lang'])) {
@@ -267,6 +262,11 @@ class i18n {
             foreach (explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']) as $part) {
                 $userLangs[] = strtolower(substr($part, 0, 2));
             }
+        }
+
+        // 5th priority: not found language
+        if ($this->fallbackLang != NULL) {
+            $userLangs[] = $this->fallbackLang;
         }
 
         // Lowest priority: fallback
